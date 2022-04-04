@@ -6,7 +6,7 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     [SerializeField] private float m_Radius = 5f;
-    private ArmyController m_Target = null;
+    private CombatUnit m_Target = null;
     [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private float rateOfShooting;
     private float startRate;
@@ -37,7 +37,7 @@ public class Turret : MonoBehaviour
         {
             var enter = Physics2D.OverlapCircle(transform.position, m_Radius);
 
-            if (enter && enter.TryGetComponent<ArmyController>(out var enemy))
+            if (enter && enter.TryGetComponent<CombatUnit>(out var enemy))
             {
                 if (enemy)
                 {

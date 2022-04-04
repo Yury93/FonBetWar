@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))] 
-public class ArmyController : MonoBehaviour
+public class CombatUnit : MonoBehaviour
 {
     /// ///////////////////////////////
     [Header("Combat unit parameters")]

@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var enemy = collision.GetComponent<ArmyController>();
+        var enemy = collision.GetComponent<CombatUnit>();
         if (enemy)
         {
             Destroy(gameObject);
