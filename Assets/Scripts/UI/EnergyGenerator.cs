@@ -33,6 +33,7 @@ public class EnergyGenerator : MonoBehaviour
     {
         if (energy >= countEnergy) { 
             energy -= countEnergy;
-            }
+            textEnergy.text = $"Energy: {energy}";
+        }
     }
 }

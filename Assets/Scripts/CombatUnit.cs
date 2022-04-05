@@ -9,6 +9,8 @@ public class CombatUnit : MonoBehaviour
     public int CurrentHP => currentHp;
     [SerializeField] private float speed;
     public float Speed => speed;
+    [SerializeField] private float distanceStop;
+    public float DistanceAttack => distanceStop;
     [SerializeField] private bool ai;
     public bool AI => ai;
     /// ///////////////////////////////
@@ -17,39 +19,31 @@ public class CombatUnit : MonoBehaviour
     public Rigidbody2D Rb => rb;
     public enum StateMode
     {
-        Idle,
-        Move,
-        AttackBase,
-        AttackArmy
+        MoveBase,
+        MoveArmy
     }
 
-    [SerializeField] private StateMode state = StateMode.Idle;
+    [SerializeField] private StateMode state = StateMode.MoveBase;
     public StateMode State => state;
 
     private GameObject camp, enemy;
+  
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
     void Update()
     {
-        if(state == StateMode.Idle)
-        {
-            rb.drag = 10000;
-        }
-        if (state == StateMode.Move)
-        {
-            Move();
-        }
-        if (state == StateMode.AttackBase)
+        if (state == StateMode.MoveBase)
         {
             FindBase();
+            
             if(camp)
             {
                 DirectionOfGameObject(camp);
             }
         }
-        if (state == StateMode.AttackArmy)
+        if (state == StateMode.MoveArmy)
         {
             FindArmy();
             if (enemy)
@@ -82,65 +76,45 @@ public class CombatUnit : MonoBehaviour
             camp = GameObject.FindGameObjectWithTag("PlayerBase");
         }
     }
-    private void Move()
-    {
-        rb.drag = 0.3f;
-        if (!AI)
-        {
-            Rb.AddForce(Vector2.right * Speed * Time.deltaTime);
-        }
-        else if (AI)
-        {
-            Rb.AddForce(Vector2.left * Speed * Time.deltaTime);
-        }
-    }
-
-    /// <summary>
-    /// метод вычисляет направление до объекта и идёт к нему
-    /// </summary>
-    /// <param name="obj"></param>
     private void DirectionOfGameObject(GameObject obj)
     {
         var direction = obj.transform.position - transform.position;
         direction.z = transform.position.z;
         var distance = direction.magnitude;
-        print(distance);
-        ////TODO: танк, солдат и так далее, какая дистанция 
-        if (distance >= 1)
+        
+        if (distance > distanceStop)
         {
             rb.drag = 0.3f;
             rb.AddForce(direction * speed * Time.deltaTime);
+
         }
         else
         {
-            Debug.Log($"Остановился перед {obj.name}");
-            rb.drag = 10000;
+            rb.drag = 10000;//остановка
         }
     }
     public void SetState(string writeState)
     {
         switch(writeState)
         {
-            case "Idle":
+            case "MoveBase":
                 {
-                    state = StateMode.Idle;
+                    state = StateMode.MoveBase;
                     break;
                 }
-            case "Move":
+            case "MoveArmy":
                 {
-                    state = StateMode.Move;
-                    break;
-                }
-            case "AttackBase":
-                {
-                    state = StateMode.AttackBase;
-                    break;
-                }
-            case "AttackArmy":
-                {
-                    state = StateMode.AttackArmy;
+                    state = StateMode.MoveArmy;
                     break;
                 }
         }
+    }
+    public void SetProperties (int hp, float speedUnit,float distanceStop, bool aI, Sprite sprite)
+    {
+        this.currentHp = hp;
+        this.speed = speedUnit;
+        this.distanceStop = distanceStop;
+        this.ai = aI;
+        GetComponentInChildren<SpriteRenderer>().sprite = sprite;
     }
 }

@@ -7,12 +7,13 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float speed;
     public float Speed => speed;
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var enemy = collision.GetComponent<CombatUnit>();
-        if (enemy)
-        {
-            Destroy(gameObject);
-        }
+        //var enemy = collision.GetComponent<CombatUnit>();
+        //if (enemy)
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 }

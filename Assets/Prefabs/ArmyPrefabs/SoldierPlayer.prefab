@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2626938174159950275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8581513931349325294}
+  m_Layer: 0
+  m_Name: PointSpawnProjectile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8581513931349325294
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2626938174159950275}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.829, y: 0.036, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2666142307917226399}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2666142307617022495
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,8 +122,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2666142307917226399}
   - component: {fileID: 2666142307917226385}
+  - component: {fileID: 2671165274539060316}
   - component: {fileID: 2666142307917226396}
-  - component: {fileID: 2666142307917226398}
+  - component: {fileID: 1875460758958820365}
   m_Layer: 0
   m_Name: SoldierPlayer
   m_TagString: PlayerArmy
@@ -113,6 +144,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2666142307617022492}
+  - {fileID: 8581513931349325294}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -130,9 +162,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHp: 100
   speed: 2
+  distanceStop: 6
   ai: 0
   rb: {fileID: 2666142307917226396}
   state: 0
+--- !u!114 &2671165274539060316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2666142307917226384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93916c74987f32488a7899ec2bbf089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 8.84
+  target: {fileID: 0}
+  projectilePrefab: {fileID: 8809182861050714099, guid: 42b9c925e69af1647853739f054337cd, type: 3}
+  rateOfShooting: 1
+  ai: 0
+  transformSpawn: {fileID: 8581513931349325294}
 --- !u!50 &2666142307917226396
 Rigidbody2D:
   serializedVersion: 4
@@ -152,10 +203,10 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!61 &2666142307917226398
-BoxCollider2D:
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!58 &1875460758958820365
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -164,19 +215,9 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.5

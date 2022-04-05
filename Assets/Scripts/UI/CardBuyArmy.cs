@@ -6,9 +6,10 @@ public class CardBuyArmy : MonoBehaviour
 {
     [SerializeField] private int priceEnery;
     [SerializeField] private CombatUnit prefabUnit;
-    [SerializeField] private UnitProperties assetUnit;
+    [SerializeField] private UnitProperties unitProperties;
     private CombatUnit unit = null;
     private EnergyGenerator energyGenerator;
+
     private void Start()
     {
         energyGenerator = FindObjectOfType<EnergyGenerator>();
@@ -41,7 +42,16 @@ public class CardBuyArmy : MonoBehaviour
             screenPoint.x < -2)
         {
             screenPoint.z = 0;
-            Instantiate(unit, screenPoint, Quaternion.identity);
+           var newUnit = Instantiate(unit, screenPoint, Quaternion.identity);
+            
+            newUnit.GetComponent<Turret>().RadiusAttack(unitProperties.SetRadiusAttack());
+
+            newUnit.SetProperties(unitProperties.SetHp,
+                unitProperties.SetSpeed,
+                unitProperties.SetDistanceStop,
+                unitProperties.SetAi,
+                unitProperties.SetSprite);
+
             unit = null;
         }
     }

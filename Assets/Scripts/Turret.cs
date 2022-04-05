@@ -5,37 +5,40 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    [SerializeField] private float m_Radius = 5f;
-    private CombatUnit m_Target = null;
+    [SerializeField] private float radius = 5f;
+    [SerializeField] private GameObject target = null;
     [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private float rateOfShooting;
     private float startRate;
     [SerializeField] private bool ai;
+    [SerializeField] private Transform transformSpawn;
+    
     private void Start()
     {
         startRate = rateOfShooting;
+        
     }
     private void Update()
     {
-        DetectedEnemy();
+        TargetAttack();
     }
-    private void DetectedEnemy()
+    private void TargetAttack()
     {
-        if (m_Target)
+        if (target)
         {
-            Vector2 targetVector = m_Target.transform.position - transform.position;
-            if (targetVector.magnitude <= m_Radius)
+            Vector2 targetVector = target.transform.position - transform.position;
+            if (targetVector.magnitude <= radius)
             {
                 Fire();
             }
             else
             {
-                m_Target = null;
+                //target = null;
             }
         }
         else
         {
-            var enter = Physics2D.OverlapCircle(transform.position, m_Radius);
+            var enter = Physics2D.OverlapCircle(transform.position, radius);
 
             if (enter && enter.TryGetComponent<CombatUnit>(out var enemy))
             {
@@ -43,11 +46,26 @@ public class Turret : MonoBehaviour
                 {
                     if (enemy.AI == false && ai)
                     {
-                        m_Target = enemy;
+                        target = enemy.gameObject;
                     }
                     else if (enemy.AI && ai == false)
                     {
-                        m_Target = enemy;
+                        target = enemy.gameObject;
+                    }
+                }
+            }
+            
+           else if (enter && enter.TryGetComponent<Camp>(out var camp))
+            {
+                if (camp)
+                {
+                    if (camp.AI == false && ai)
+                    {
+                        target = camp.gameObject;
+                    }
+                    else if (camp.AI && ai == false)
+                    {
+                        target = camp.gameObject;
                     }
                 }
             }
@@ -59,8 +77,13 @@ public class Turret : MonoBehaviour
     {
         if (rateOfShooting < 0)
         {
-            var projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-            Vector2 targetVector = m_Target.transform.position - transform.position;
+           
+            var projectile = Instantiate(projectilePrefab, transformSpawn.position, Quaternion.identity);
+            Vector2 targetVector = target.transform.position - transform.position;
+
+            float angle = Vector3.Angle(transformSpawn.position, target.transform.position);
+            transformSpawn.transform.rotation = Quaternion.Euler(0,0,angle);
+            
             projectile.GetComponent<Rigidbody2D>().AddForce(targetVector * projectile.Speed * Time.deltaTime, ForceMode2D.Impulse);
 
             rateOfShooting = startRate;
@@ -73,6 +96,10 @@ public class Turret : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, m_Radius);
+        Gizmos.DrawWireSphere(transform.position, radius);
+    }
+    public void RadiusAttack(float r)
+    {
+        radius = r;
     }
 }

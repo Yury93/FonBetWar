@@ -53,18 +53,19 @@
     <UnityVersion>2020.3.26f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Camp.cs" />
-    <Compile Include="Assets\Scripts\PlayerBase.cs" />
-    <Compile Include="Assets\Scripts\Soldier.cs" />
-    <Compile Include="Assets\Scripts\Projectile.cs" />
-    <Compile Include="Assets\Scripts\EnemyBase.cs" />
-    <Compile Include="Assets\Scripts\Turret.cs" />
-    <Compile Include="Assets\Scripts\UI\EnergyGenerator.cs" />
     <Compile Include="Assets\Scripts\Controllers\EntityContainer.cs" />
     <Compile Include="Assets\Scripts\UI\CardBuyArmy.cs" />
-    <Compile Include="Assets\Scripts\CombatUnit.cs" />
-    <Compile Include="Assets\Scripts\SingletonBase.cs" />
+    <Compile Include="Assets\Scripts\Camp.cs" />
     <Compile Include="Assets\Scripts\UnitProperties.cs" />
+    <Compile Include="Assets\Scripts\UI\EnergyGenerator.cs" />
+    <Compile Include="Assets\Scripts\CombatUnit.cs" />
+    <Compile Include="Assets\Scripts\PlayerBase.cs" />
+    <Compile Include="Assets\Scripts\Unit.cs" />
+    <Compile Include="Assets\Scripts\Projectile.cs" />
+    <Compile Include="Assets\Scripts\SingletonBase.cs" />
+    <Compile Include="Assets\Scripts\EnemyBase.cs" />
+    <Compile Include="Assets\Scripts\Turret.cs" />
+    <Compile Include="Assets\Scripts\UnitAttack.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
