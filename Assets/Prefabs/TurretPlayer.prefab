@@ -129,10 +129,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 5
   target: {fileID: 0}
-  projectilePrefab: {fileID: 8809182861050714099, guid: 42b9c925e69af1647853739f054337cd, type: 3}
+  projectilePrefab: {fileID: 4222627925071665067, guid: 42b9c925e69af1647853739f054337cd, type: 3}
   rateOfShooting: 2
   ai: 0
-  transformSpawn: {fileID: 6723823478960116222}
 --- !u!1 &3023279292869576344
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6723823478960116222}
   - component: {fileID: 7233145876626074632}
+  - component: {fileID: 4603634089643099873}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -158,7 +158,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3023279292869576344}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.153, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1955845188103596317}
@@ -203,8 +203,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c4f96d22b2cb4764d94002944216c8bb, type: 3}
+  m_SortingOrder: 100
+  m_Sprite: {fileID: 21300000, guid: 8d5967ec78257c54b99b00ab38eb4a1a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -215,3 +215,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4603634089643099873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3023279292869576344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e076aa321ee8713478a4ecdc859a642e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: -25

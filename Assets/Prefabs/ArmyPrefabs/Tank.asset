@@ -17,4 +17,4 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 1d5393b17573091438588223db3e3829, type: 3}
   ai: 0
   distanceStopUnit: 3
-  radiusAttack: 6.27
+  radiusAttack: 5

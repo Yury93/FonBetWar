@@ -117,4 +117,13 @@ public class CombatUnit : MonoBehaviour
         this.ai = aI;
         GetComponentInChildren<SpriteRenderer>().sprite = sprite;
     }
+    public void DamageUnit(int damage)
+    {
+        currentHp -= damage;
+        if (currentHp <= 0)
+        {
+            Destroy(gameObject);
+            print("unit уничтожен!");
+        }
+    }
 }

@@ -11,7 +11,6 @@ public class Turret : MonoBehaviour
     [SerializeField] private float rateOfShooting;
     private float startRate;
     [SerializeField] private bool ai;
-    [SerializeField] private Transform transformSpawn;
     
     private void Start()
     {
@@ -33,17 +32,29 @@ public class Turret : MonoBehaviour
             }
             else
             {
-                //target = null;
+                target = null;
             }
         }
-        else
+        if(!target)
         {
             var enter = Physics2D.OverlapCircle(transform.position, radius);
 
-            if (enter && enter.TryGetComponent<CombatUnit>(out var enemy))
+            if (enter)
             {
-                if (enemy)
+                if (enter.TryGetComponent<Camp>(out var camp))
                 {
+                    if (camp.AI == true && !ai)
+                    {
+                        target = camp.gameObject;
+                    }
+                    else if (!camp.AI && ai == true)
+                    {
+                        target = camp.gameObject;
+                    }
+                }
+                else if (enter.TryGetComponent<CombatUnit>(out var enemy))
+                {
+
                     if (enemy.AI == false && ai)
                     {
                         target = enemy.gameObject;
@@ -53,39 +64,19 @@ public class Turret : MonoBehaviour
                         target = enemy.gameObject;
                     }
                 }
+                
             }
-            
-           else if (enter && enter.TryGetComponent<Camp>(out var camp))
-            {
-                if (camp)
-                {
-                    if (camp.AI == false && ai)
-                    {
-                        target = camp.gameObject;
-                    }
-                    else if (camp.AI && ai == false)
-                    {
-                        target = camp.gameObject;
-                    }
-                }
-            }
-            else { return; }
+            //else { return; }
         }
     }
-
+   
     private void Fire()
     {
         if (rateOfShooting < 0)
         {
-           
-            var projectile = Instantiate(projectilePrefab, transformSpawn.position, Quaternion.identity);
-            Vector2 targetVector = target.transform.position - transform.position;
-
-            float angle = Vector3.Angle(transformSpawn.position, target.transform.position);
-            transformSpawn.transform.rotation = Quaternion.Euler(0,0,angle);
-            
-            projectile.GetComponent<Rigidbody2D>().AddForce(targetVector * projectile.Speed * Time.deltaTime, ForceMode2D.Impulse);
-
+            var dir = transform.position - target.transform.position;
+            var projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            projectile.Rb.AddForce(-dir * projectile.Velocity * Time.deltaTime, ForceMode2D.Impulse);
             rateOfShooting = startRate;
         }
         else

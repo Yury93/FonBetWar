@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 96
+  m_SortingOrder: 105
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0.8867924, g: 0.12046986, b: 0.8732755, a: 1}
   m_FlipX: 0
@@ -91,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8289450833635178489}
-  - component: {fileID: 8809182861050714099}
+  - component: {fileID: 4222627925071665067}
   - component: {fileID: 101761168856878739}
   - component: {fileID: 8695520316995556394}
   m_Layer: 0
@@ -116,7 +116,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8809182861050714099
+--- !u!114 &4222627925071665067
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,10 +125,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8289450833635178490}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1739157e0d3b2274aaca21688adbebf5, type: 3}
+  m_Script: {fileID: 11500000, guid: 604afc897571a8146b38cbfb782bdfba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 147.46
+  velocity: 100
+  lifeTime: 2
+  rb: {fileID: 8695520316995556394}
 --- !u!61 &101761168856878739
 BoxCollider2D:
   m_ObjectHideFlags: 0
