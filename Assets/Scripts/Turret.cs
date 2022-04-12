@@ -6,7 +6,9 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     [SerializeField] private float radius = 5f;
-    [SerializeField] private GameObject target = null;
+    [SerializeField] private GameObject target;
+    private GameObject startTarget;
+    public GameObject Target => target;
     [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private float rateOfShooting;
     private float startRate;
@@ -15,6 +17,7 @@ public class Turret : MonoBehaviour
     private void Start()
     {
         startRate = rateOfShooting;
+        startTarget = target;
         
     }
     private void Update()
@@ -38,7 +41,7 @@ public class Turret : MonoBehaviour
         if(!target)
         {
             var enter = Physics2D.OverlapCircle(transform.position, radius);
-
+            
             if (enter)
             {
                 if (enter.TryGetComponent<Camp>(out var camp))
@@ -64,7 +67,6 @@ public class Turret : MonoBehaviour
                         target = enemy.gameObject;
                     }
                 }
-                
             }
             //else { return; }
         }
@@ -74,9 +76,11 @@ public class Turret : MonoBehaviour
     {
         if (rateOfShooting < 0)
         {
+            AudioManager.Instance.AudioPlay("shot");
             var dir = transform.position - target.transform.position;
             var projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             projectile.Rb.AddForce(-dir * projectile.Velocity * Time.deltaTime, ForceMode2D.Impulse);
+            projectile.SetAI(ai);
             rateOfShooting = startRate;
         }
         else

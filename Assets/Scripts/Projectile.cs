@@ -22,13 +22,25 @@ using UnityEngine;
     {
         if(collision.TryGetComponent<Camp>(out var camp))
         {
-            //передаём в пулю аи и если колизия не аи то наносим урон, а остальных а аи не трогаем
+            if(ai != camp.AI)
+            {
+                camp.DamageCamp(10);
+                Destroy(gameObject);
+            }
             
         }
         if (collision.TryGetComponent<Unit>(out var unit))
         {
-            
+            if (ai != unit.AI)
+            {
+                unit.DamageUnit(10);
+                Destroy(gameObject);
+            }
         }
+    }
+    public void SetAI(bool aiProjectile)
+    {
+        ai = aiProjectile;
     }
 }
 

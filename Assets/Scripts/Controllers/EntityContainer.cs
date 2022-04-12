@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EntityContainer : SingletonBase<EntityContainer>
 {
-    [SerializeField] private GameObject UIEnergyGenerator;
-    public GameObject EnergyGenertor => UIEnergyGenerator;
-   
+    [SerializeField] private EnergyGenerator UIEnergyGenerator;
+    public EnergyGenerator uiEnergyGenertor => UIEnergyGenerator;
+
+
 }

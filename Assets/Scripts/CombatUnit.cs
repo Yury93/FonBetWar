@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))] 
 public class CombatUnit : MonoBehaviour
@@ -17,6 +18,8 @@ public class CombatUnit : MonoBehaviour
     [Header("Auto work")]
     [SerializeField] private Rigidbody2D rb;
     public Rigidbody2D Rb => rb;
+
+    public event Action OnDeathUnit;
     public enum StateMode
     {
         MoveBase,
@@ -31,6 +34,8 @@ public class CombatUnit : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        AudioManager.Instance.AudioPlay("spawn");
+        AudioManager.Instance.AudioPlay("moveTank");
     }
     void Update()
     {
@@ -54,14 +59,17 @@ public class CombatUnit : MonoBehaviour
     }
     private void FindArmy()
     {
+        
         camp = null;
         if (!AI && !enemy)
         {
             enemy = GameObject.FindGameObjectWithTag("EnemyArmy");
+            
         }
         else if (AI && !enemy)
         {
             enemy = GameObject.FindGameObjectWithTag("PlayerArmy");
+            
         }
     }
     private void FindBase()
@@ -70,10 +78,12 @@ public class CombatUnit : MonoBehaviour
         if (!AI && !camp)
         {
             camp = GameObject.FindGameObjectWithTag("EnemyBase");
+          
         }
         else if (AI && !camp)
         {
             camp = GameObject.FindGameObjectWithTag("PlayerBase");
+           
         }
     }
     private void DirectionOfGameObject(GameObject obj)
@@ -100,6 +110,7 @@ public class CombatUnit : MonoBehaviour
             case "MoveBase":
                 {
                     state = StateMode.MoveBase;
+                   
                     break;
                 }
             case "MoveArmy":
@@ -122,7 +133,12 @@ public class CombatUnit : MonoBehaviour
         currentHp -= damage;
         if (currentHp <= 0)
         {
+            OnDeathUnit?.Invoke();
+            EffectManager.Instance.CreateEffectDestroy(gameObject);
+            AudioManager.Instance.AudioPlay("blast");
+            AudioManager.Instance.AudioStop("moveTank");
             Destroy(gameObject);
+
             print("unit уничтожен!");
         }
     }

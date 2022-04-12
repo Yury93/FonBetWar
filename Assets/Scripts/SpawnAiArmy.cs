@@ -4,21 +4,35 @@ using UnityEngine;
 
 public class SpawnAiArmy : MonoBehaviour
 {
-    [SerializeField] private GameObject prefabUnitAi;
+    [SerializeField] private Unit prefabUnitAi;
 
     [SerializeField] private float timer;
     private float startTimer;
+    [SerializeField] private UnitProperties unitProperties;
 
     private void Start()
     {
         startTimer = timer;
+
+        //prefabUnitAi.SetProperties(unitProperties.SetHp, 
+        //    unitProperties.SetSpeed, 
+        //    unitProperties.SetDistanceStop
+        //    , unitProperties.SetAi, 
+        //    unitProperties.SetSprite);
     }
     private void Update()
     {
-        if(timer< 0)
+        if(timer < 0)
         {
-            Instantiate(prefabUnitAi, transform.position, Quaternion.identity);
+            var enemy =  Instantiate(prefabUnitAi, transform.position, Quaternion.identity);
+            
             timer = startTimer;
+
+            enemy.SetProperties(unitProperties.SetHp,
+            unitProperties.SetSpeed,
+            unitProperties.SetDistanceStop
+            , unitProperties.SetAi,
+            unitProperties.SetSprite);
         }
         else
         {

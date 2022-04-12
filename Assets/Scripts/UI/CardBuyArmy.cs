@@ -19,6 +19,7 @@ public class CardBuyArmy : MonoBehaviour
         energyGenerator.UseEnergy(priceEnery);
         unit = prefabUnit;
         gameObject.GetComponentInChildren<Button>().interactable = false;
+        UIManager.Instance.OnTextClick(true);
     }
     
     private void Update()
@@ -39,11 +40,13 @@ public class CardBuyArmy : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) &&
             unit &&
-            screenPoint.x < -2)
+            screenPoint.x < -0.5f)
         {
             screenPoint.z = 0;
            var newUnit = Instantiate(unit, screenPoint, Quaternion.identity);
-            
+
+            UIManager.Instance.OnTextClick(false);
+
             newUnit.GetComponent<Turret>().RadiusAttack(unitProperties.SetRadiusAttack());
 
             newUnit.SetProperties(unitProperties.SetHp,
